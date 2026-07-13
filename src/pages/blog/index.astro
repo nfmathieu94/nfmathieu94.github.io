@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import PostItem from "../../components/PostItem.astro";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Base title="Blog" description="Posts and notes from the bench.">
+  <PageIntro
+    label="Blog"
+    title="Blog"
+    lede="Notes, ideas, and occasional longer posts."
+  />
+
+  {
+    posts.length > 0 ? (
+      <div class="divide-y divide-line">
+        {posts.map((post) => (
+          <PostItem
+            href={`/blog/${post.id}/`}
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.pubDate}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-ink-muted">
+        [PLACEHOLDER: no posts yet. Add Markdown/MDX files under
+        <code class="font-mono">src/content/blog/</code>.]
+      </p>
+    )
+  }
+</Base>

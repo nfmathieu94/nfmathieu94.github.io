@@ -1,0 +1,80 @@
+---
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import { SITE, PROFILES } from "../data/site";
+---
+
+<Base
+  title="About"
+  description={`About ${SITE.name} — background and research interests.`}
+>
+  <PageIntro
+    label="About"
+    title="Background & research interests"
+    lede="Who I am, what I study, and how to reach me."
+  />
+
+  <div class="grid gap-10 md:grid-cols-[2fr_1fr]">
+    <div class="prose">
+      <h2>Biography</h2>
+      <p>
+        <!-- [PLACEHOLDER: 2-3 paragraph biography. Cover your path into plant
+        biology, where you did undergrad/prior training, and what drew you to
+        UC Riverside.] -->
+        I'm a PhD student at {SITE.institution}. My work sits between the
+        laboratory and the terminal — I care about plants, genomes, and building
+        analyses that other people can trust and reproduce.
+      </p>
+
+      <h2>Research interests</h2>
+      <ul>
+        <!-- [PLACEHOLDER: replace with your actual research interests.] -->
+        <li>Plant genomics and comparative genome analysis</li>
+        <li>Reproducible, HPC-scale bioinformatics workflows</li>
+        <li>Open scientific software and data visualization</li>
+      </ul>
+
+      <h2>Beyond the bench</h2>
+      <p>
+        <!-- [PLACEHOLDER: short, human note — teaching, mentoring, outreach,
+        or hobbies. Optional but recommended for a distinctive site.] -->
+        Outside of research I enjoy growing plants and writing about the tools I use.
+      </p>
+    </div>
+
+    <aside class="space-y-6">
+      <div class="specimen-card p-5">
+        <p class="tag-label mb-2">Contact</p>
+        <a href={`mailto:${SITE.email}`} class="link-vine break-all">
+          {SITE.email}
+        </a>
+      </div>
+      <div class="specimen-card p-5">
+        <p class="tag-label mb-3">Profiles</p>
+        <ul class="space-y-2">
+          {
+            PROFILES.map((p) => (
+              <li>
+                <a
+                  href={p.url}
+                  class="link-vine"
+                  rel="me noopener"
+                  title={
+                    p.placeholder
+                      ? "Placeholder link — update in src/data/site.ts"
+                      : undefined
+                  }
+                >
+                  {p.label}
+                </a>
+                {p.placeholder && (
+                  <span class="ml-1 text-xs text-clay">(placeholder)</span>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </aside>
+  </div>
+</Base>

@@ -1,0 +1,42 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import PageIntro from "../../components/PageIntro.astro";
+import PostItem from "../../components/PostItem.astro";
+
+const tutorials = (await getCollection("tutorials"))
+  .filter((t) => !t.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Base
+  title="Tutorials"
+  description="Step-by-step tutorials on bioinformatics and scientific computing."
+>
+  <PageIntro
+    label="Tutorials"
+    title="Tutorials"
+    lede="Practical, reproducible walkthroughs for tools and techniques I use."
+  />
+
+  {
+    tutorials.length > 0 ? (
+      <div class="divide-y divide-line">
+        {tutorials.map((tut) => (
+          <PostItem
+            href={`/tutorials/${tut.id}/`}
+            title={tut.data.title}
+            description={tut.data.description}
+            date={tut.data.pubDate}
+            meta={tut.data.difficulty}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="text-ink-muted">
+        [PLACEHOLDER: no tutorials yet. Add Markdown/MDX files under
+        <code class="font-mono">src/content/tutorials/</code>.]
+      </p>
+    )
+  }
+</Base>

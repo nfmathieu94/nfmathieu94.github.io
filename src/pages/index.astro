@@ -1,0 +1,117 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import LeafDivider from "../components/LeafDivider.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import PostItem from "../components/PostItem.astro";
+import { SITE } from "../data/site";
+import { withBase } from "../lib/paths";
+
+const projects = (await getCollection("projects"))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 2);
+
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<Base title={SITE.name}>
+  <!-- Hero -->
+  <section class="py-6 sm:py-10">
+    <p class="tag-label mb-3">{SITE.role}</p>
+    <h1 class="font-display text-4xl font-semibold leading-tight sm:text-5xl">
+      Hi, I'm {SITE.name}.
+    </h1>
+    <p class="mt-5 max-w-prose text-lg text-ink-muted">
+      <!-- [PLACEHOLDER: one- or two-sentence positioning statement.] -->
+      I study plant biology at {SITE.institution}, working at the intersection
+      of genomics, computation, and the living green world. This site collects
+      my research, software, writing, and notes from the bench.
+    </p>
+    <div class="mt-7 flex flex-wrap gap-4">
+      <a
+        href={withBase("/about/")}
+        class="bg-pine px-5 py-2.5 font-medium text-paper transition-colors hover:bg-moss"
+      >
+        About me
+      </a>
+      <a
+        href={withBase("/research/")}
+        class="border border-line px-5 py-2.5 font-medium text-ink transition-colors hover:border-moss hover:text-pine"
+      >
+        Research
+      </a>
+    </div>
+  </section>
+
+  <LeafDivider class="mx-auto my-10 w-40 text-moss" />
+
+  <!-- Current focus -->
+  <section class="py-4">
+    <h2 class="font-display text-2xl font-semibold">Current focus</h2>
+    <ul class="mt-4 grid gap-3 sm:grid-cols-3">
+      <li class="specimen-card p-4">
+        <p class="tag-label mb-1">Research</p>
+        <!-- [PLACEHOLDER: current research thrust.] -->
+        <p class="text-ink-muted">Genome-scale questions in plant biology.</p>
+      </li>
+      <li class="specimen-card p-4">
+        <p class="tag-label mb-1">Building</p>
+        <!-- [PLACEHOLDER: what you are building.] -->
+        <p class="text-ink-muted">
+          Open-source tools for reproducible analysis.
+        </p>
+      </li>
+      <li class="specimen-card p-4">
+        <p class="tag-label mb-1">Writing</p>
+        <!-- [PLACEHOLDER: writing focus.] -->
+        <p class="text-ink-muted">Tutorials and notes on bioinformatics.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Selected projects -->
+  {
+    projects.length > 0 && (
+      <section class="py-8">
+        <div class="flex items-baseline justify-between">
+          <h2 class="font-display text-2xl font-semibold">Selected projects</h2>
+          <a href={withBase("/research/")} class="link-vine text-sm">
+            All research →
+          </a>
+        </div>
+        <div class="mt-5 grid gap-5 sm:grid-cols-2">
+          {projects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Recent writing -->
+  {
+    posts.length > 0 && (
+      <section class="py-8">
+        <div class="flex items-baseline justify-between">
+          <h2 class="font-display text-2xl font-semibold">Recent writing</h2>
+          <a href={withBase("/blog/")} class="link-vine text-sm">
+            All posts →
+          </a>
+        </div>
+        <div class="mt-2 divide-y divide-line">
+          {posts.map((post) => (
+            <PostItem
+              href={`/blog/${post.id}/`}
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.pubDate}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  }
+</Base>
