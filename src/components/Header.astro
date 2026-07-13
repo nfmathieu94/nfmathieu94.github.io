@@ -1,0 +1,142 @@
+---
+import { SITE, NAV } from "../data/site";
+import { withBase } from "../lib/paths";
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => currentPath.startsWith(withBase(href));
+---
+
+<header class="border-b border-line">
+  <div
+    class="mx-auto flex max-w-4xl items-center justify-between gap-4 px-5 py-4 sm:px-8"
+  >
+    <a
+      href={withBase("/")}
+      class="font-display text-xl font-semibold text-ink hover:text-pine"
+    >
+      {SITE.name}
+    </a>
+
+    <div class="flex items-center gap-2">
+      <nav aria-label="Main" class="hidden md:block">
+        <ul class="flex items-center gap-5">
+          {
+            NAV.map((item) => (
+              <li>
+                <a
+                  href={withBase(item.href)}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  class:list={[
+                    "text-sm font-medium transition-colors hover:text-pine",
+                    isActive(item.href)
+                      ? "text-pine underline decoration-lichen decoration-2 underline-offset-6"
+                      : "text-ink-muted",
+                  ]}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <button
+        id="theme-toggle"
+        type="button"
+        aria-label="Toggle color theme"
+        class="rounded-sm border border-line p-2 text-ink-muted hover:border-moss hover:text-pine"
+      >
+        <svg
+          class="hidden size-4 dark:block"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="4"></circle>
+          <path
+            d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+          ></path>
+        </svg>
+        <svg
+          class="size-4 dark:hidden"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+
+      <button
+        id="menu-toggle"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        class="rounded-sm border border-line p-2 text-ink-muted hover:border-moss hover:text-pine md:hidden"
+      >
+        <svg
+          class="size-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M3 6h18M3 12h18M3 18h18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav
+    id="mobile-nav"
+    aria-label="Main menu"
+    class="hidden border-t border-line md:hidden"
+  >
+    <ul class="mx-auto max-w-4xl space-y-1 px-5 py-3 sm:px-8">
+      {
+        NAV.map((item) => (
+          <li>
+            <a
+              href={withBase(item.href)}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              class:list={[
+                "block py-1.5 font-medium",
+                isActive(item.href) ? "text-pine" : "text-ink-muted",
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const themeToggle = document.getElementById("theme-toggle");
+  themeToggle?.addEventListener("click", () => {
+    const root = document.documentElement;
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    localStorage.setItem("theme", next);
+  });
+
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileNav = document.getElementById("mobile-nav");
+  menuToggle?.addEventListener("click", () => {
+    const open = mobileNav?.classList.toggle("hidden") === false;
+    menuToggle.setAttribute("aria-expanded", String(open));
+  });
+</script>

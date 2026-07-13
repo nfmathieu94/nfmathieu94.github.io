@@ -1,0 +1,23 @@
+---
+import Base from "../layouts/Base.astro";
+import LeafDivider from "../components/LeafDivider.astro";
+import { withBase } from "../lib/paths";
+---
+
+<Base title="Page not found" description="404 — this page could not be found.">
+  <section class="py-16 text-center">
+    <p class="tag-label mb-3">Error 404</p>
+    <h1 class="font-display text-4xl font-semibold">This trail ends here</h1>
+    <LeafDivider class="mx-auto my-8 w-40 text-moss" />
+    <p class="mx-auto max-w-prose text-lg text-ink-muted">
+      The page you're looking for doesn't exist — it may have been moved or
+      never planted.
+    </p>
+    <a
+      href={withBase("/")}
+      class="mt-8 inline-block bg-pine px-5 py-2.5 font-medium text-paper transition-colors hover:bg-moss"
+    >
+      Back home
+    </a>
+  </section>
+</Base>

@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { SITE } from "../data/site";
+
+interface Props {
+  pub: CollectionEntry<"publications">;
+}
+const { pub } = Astro.props;
+const { title, authors, venue, year, type, doi, pdf, code } = pub.data;
+
+const typeLabel: Record<typeof type, string> = {
+  article: "Article",
+  preprint: "Preprint",
+  poster: "Poster",
+  talk: "Talk",
+};
+---
+
+<article class="border-l-2 border-line py-1 pl-4 hover:border-moss">
+  <p class="tag-label">{typeLabel[type]} · {year}</p>
+  <h3 class="mt-1 font-display text-lg font-medium">{title}</h3>
+  <p class="mt-1 text-sm text-ink-muted">
+    {
+      authors.map((author, i) => (
+        <>
+          <span class:list={[author === SITE.name && "font-bold text-ink"]}>
+            {author}
+          </span>
+          {i < authors.length - 1 && ", "}
+        </>
+      ))
+    }
+  </p>
+  <p class="mt-1 text-sm italic text-ink-muted">{venue}</p>
+  {
+    (doi || pdf || code) && (
+      <p class="mt-2 flex gap-4 text-sm">
+        {doi && (
+          <a href={`https://doi.org/${doi}`} class="link-vine" rel="noopener">
+            DOI
+          </a>
+        )}
+        {pdf && (
+          <a href={pdf} class="link-vine" rel="noopener">
+            PDF
+          </a>
+        )}
+        {code && (
+          <a href={code} class="link-vine" rel="noopener">
+            Code
+          </a>
+        )}
+      </p>
+    )
+  }
+</article>

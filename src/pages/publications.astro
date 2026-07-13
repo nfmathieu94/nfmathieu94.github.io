@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import PublicationItem from "../components/PublicationItem.astro";
+
+const pubs = (await getCollection("publications")).sort(
+  (a, b) => b.data.year - a.data.year,
+);
+
+// Group by year, newest first.
+const byYear = new Map<number, typeof pubs>();
+for (const pub of pubs) {
+  const list = byYear.get(pub.data.year) ?? [];
+  list.push(pub);
+  byYear.set(pub.data.year, list);
+}
+const years = [...byYear.keys()].sort((a, b) => b - a);
+---
+
+<Base
+  title="Publications"
+  description="Publications, preprints, posters, and talks."
+>
+  <PageIntro
+    label="Publications"
+    title="Publications & presentations"
+    lede="Peer-reviewed articles, preprints, posters, and talks."
+  />
+
+  {
+    years.length > 0 ? (
+      <div class="space-y-10">
+        {years.map((year) => (
+          <section>
+            <h2 class="mb-4 font-display text-xl font-semibold text-ink-muted">
+              {year}
+            </h2>
+            <div class="space-y-6">
+              {byYear.get(year)!.map((pub) => (
+                <PublicationItem pub={pub} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    ) : (
+      <p class="text-ink-muted">
+        [PLACEHOLDER: no publications yet. Add Markdown files under
+        <code class="font-mono">src/content/publications/</code>.]
+      </p>
+    )
+  }
+</Base>

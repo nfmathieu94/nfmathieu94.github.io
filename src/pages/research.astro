@@ -1,0 +1,36 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Base
+  title="Research"
+  description="Research projects and ongoing work in plant biology."
+>
+  <PageIntro
+    label="Research"
+    title="Research projects"
+    lede="Ongoing and past projects. Each links out to code, preprints, or data where available."
+  />
+
+  {
+    projects.length > 0 ? (
+      <div class="grid gap-5 sm:grid-cols-2">
+        {projects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    ) : (
+      <p class="text-ink-muted">
+        [PLACEHOLDER: no projects yet. Add Markdown files under
+        <code class="font-mono">src/content/projects/</code>.]
+      </p>
+    )
+  }
+</Base>

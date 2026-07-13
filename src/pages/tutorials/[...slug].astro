@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from "astro:content";
+import Article from "../../layouts/Article.astro";
+
+export async function getStaticPaths() {
+  const tutorials = await getCollection("tutorials", ({ data }) => !data.draft);
+  return tutorials.map((tut) => ({
+    params: { slug: tut.id },
+    props: { tut },
+  }));
+}
+
+const { tut } = Astro.props;
+const { Content } = await render(tut);
+---
+
+<Article
+  label="Tutorial"
+  title={tut.data.title}
+  description={tut.data.description}
+  pubDate={tut.data.pubDate}
+  meta={tut.data.difficulty}
+  tags={tut.data.tags}
+  backHref="/tutorials/"
+  backLabel="All tutorials"
+>
+  <Content />
+</Article>

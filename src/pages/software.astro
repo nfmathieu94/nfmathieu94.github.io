@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import SoftwareCard from "../components/SoftwareCard.astro";
+
+const tools = (await getCollection("software")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Base title="Software" description="Open-source software and GitHub projects.">
+  <PageIntro
+    label="Software"
+    title="Software & GitHub projects"
+    lede="Tools and packages I build and maintain. Everything is open source."
+  />
+
+  {
+    tools.length > 0 ? (
+      <div class="grid gap-5 sm:grid-cols-2">
+        {tools.map((tool) => (
+          <SoftwareCard tool={tool} />
+        ))}
+      </div>
+    ) : (
+      <p class="text-ink-muted">
+        [PLACEHOLDER: no software listed yet. Add Markdown files under
+        <code class="font-mono">src/content/software/</code>.]
+      </p>
+    )
+  }
+</Base>

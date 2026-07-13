@@ -1,0 +1,25 @@
+---
+/** Decorative leaf-vein divider. Purely ornamental (aria-hidden). */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg
+  class={className}
+  viewBox="0 0 160 20"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1"
+  stroke-linecap="round"
+  aria-hidden="true"
+>
+  <path d="M4 10h60"></path>
+  <path d="M96 10h60"></path>
+  <path
+    d="M80 3c-4 2-7 4.5-7 7s3 5 7 7c4-2 7-4.5 7-7s-3-5-7-7z"
+    stroke-width="1.2"></path>
+  <path d="M80 4.5v11"></path>
+  <path d="M80 8l-3.5 2.5M80 8l3.5 2.5M80 11.5l-3 2M80 11.5l3 2"></path>
+</svg>

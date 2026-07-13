@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+
+const entries = (await getCollection("teaching")).sort((a, b) =>
+  b.data.term.localeCompare(a.data.term),
+);
+---
+
+<Base title="Teaching" description="Teaching experience and technical writing.">
+  <PageIntro
+    label="Teaching"
+    title="Teaching & technical writing"
+    lede="Courses I've taught or assisted, plus technical writing and documentation."
+  />
+
+  {
+    entries.length > 0 ? (
+      <ul class="space-y-6">
+        {entries.map((entry) => (
+          <li class="border-l-2 border-line py-1 pl-4 hover:border-moss">
+            <p class="tag-label">{entry.data.term}</p>
+            <h3 class="mt-1 font-display text-lg font-medium">
+              {entry.data.role} — {entry.data.course}
+            </h3>
+            <p class="text-sm italic text-ink-muted">
+              {entry.data.institution}
+            </p>
+            <p class="mt-2 text-ink-muted">{entry.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="text-ink-muted">
+        [PLACEHOLDER: no teaching entries yet. Add Markdown files under
+        <code class="font-mono">src/content/teaching/</code>.]
+      </p>
+    )
+  }
+</Base>

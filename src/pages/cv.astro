@@ -1,0 +1,57 @@
+---
+import Base from "../layouts/Base.astro";
+import PageIntro from "../components/PageIntro.astro";
+import { SITE } from "../data/site";
+import { withBase } from "../lib/paths";
+---
+
+<Base title="CV" description={`Curriculum vitae for ${SITE.name}.`}>
+  <PageIntro label="CV" title="Curriculum vitae" />
+
+  <div class="mb-8 flex flex-wrap gap-4">
+    <!-- [PLACEHOLDER: drop a PDF at public/cv.pdf to enable this link.] -->
+    <a
+      href={withBase("/cv.pdf")}
+      class="bg-pine px-5 py-2.5 font-medium text-paper transition-colors hover:bg-moss"
+    >
+      Download PDF
+    </a>
+    <a
+      href={`mailto:${SITE.email}`}
+      class="border border-line px-5 py-2.5 font-medium text-ink transition-colors hover:border-moss hover:text-pine"
+    >
+      Request full CV
+    </a>
+  </div>
+
+  <div class="prose">
+    <h2>Education</h2>
+    <ul>
+      <!-- [PLACEHOLDER: education history.] -->
+      <li>
+        <strong>PhD, Plant Biology</strong> — {SITE.institution} (in progress)
+      </li>
+      <li><strong>BSc</strong> — [PLACEHOLDER: institution, year]</li>
+    </ul>
+
+    <h2>Research experience</h2>
+    <ul>
+      <li>[PLACEHOLDER: position, lab, dates, one-line summary.]</li>
+    </ul>
+
+    <h2>Selected skills</h2>
+    <ul>
+      <li>[PLACEHOLDER: e.g. genomics, Python/R, HPC/SLURM, Nextflow.]</li>
+    </ul>
+
+    <h2>Awards & honors</h2>
+    <ul>
+      <li>[PLACEHOLDER: award, year.]</li>
+    </ul>
+
+    <p class="text-sm text-ink-muted">
+      Publications and presentations are listed on the
+      <a href={withBase("/publications/")}>Publications</a> page.
+    </p>
+  </div>
+</Base>

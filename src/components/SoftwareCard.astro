@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  tool: CollectionEntry<"software">;
+}
+const { tool } = Astro.props;
+const { name, summary, repo, docs, language, status } = tool.data;
+---
+
+<article class="specimen-card p-5">
+  <div class="flex items-baseline justify-between gap-3">
+    <h3 class="font-display text-lg font-semibold">
+      <a href={repo} rel="noopener" class="hover:text-pine">{name}</a>
+    </h3>
+    <span class="tag-label shrink-0">{status}</span>
+  </div>
+  <p class="mt-2 text-ink-muted">{summary}</p>
+  <p class="mt-4 flex items-center gap-4 text-sm">
+    <span class="font-mono text-xs text-ink-muted">{language}</span>
+    <a href={repo} class="link-vine" rel="noopener">Repository</a>
+    {
+      docs && (
+        <a href={docs} class="link-vine" rel="noopener">
+          Docs
+        </a>
+      )
+    }
+  </p>
+</article>
