@@ -1,3 +1,14 @@
-# AI Stuff
+# AI assistant local context (AGENTS.md is tracked project policy)
 CLAUDE.md
-AGENTS.md
+
+# Dependencies and environments
+node_modules/
+.pixi/
+
+# Build output and caches
+dist/
+.astro/
+
+# Logs and OS noise
+npm-debug.log*
+.DS_Store

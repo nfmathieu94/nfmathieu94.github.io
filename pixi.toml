@@ -1,0 +1,20 @@
+[workspace]
+name = "nathanmathieu-website"
+description = "Personal academic website (Astro + TypeScript + Tailwind)"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64"]
+
+[dependencies]
+nodejs = "22.*"
+
+[tasks]
+# First-time / local install (updates package-lock.json when deps change)
+install = "npm install"
+# Reproducible install from the committed lockfile (used in CI)
+ci-install = "npm ci"
+dev = "npm run dev"
+build = "npm run build"
+preview = "npm run preview"
+check = "npm run check"
+format = "npm run format"
+format-check = "npm run format:check"

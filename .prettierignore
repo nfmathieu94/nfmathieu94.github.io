@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.astro/
+.pixi/
+pixi.lock
+package-lock.json
