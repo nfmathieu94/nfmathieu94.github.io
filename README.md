@@ -63,6 +63,10 @@ pixi run build
 
 ## Editing content
 
+> **New here / just want to fill in your details?** See
+> [`docs/EDITING-GUIDE.md`](docs/EDITING-GUIDE.md) — a plain-language, task-oriented
+> walkthrough of where everything lives and how to replace each placeholder.
+
 Content is intentionally separated from layout so you can update it without
 touching components.
 
