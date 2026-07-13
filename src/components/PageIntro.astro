@@ -1,0 +1,15 @@
+---
+/** Standard page opener: specimen-tag label, display heading, lede. */
+interface Props {
+  label: string;
+  title: string;
+  lede?: string;
+}
+const { label, title, lede } = Astro.props;
+---
+
+<div class="mb-10">
+  <p class="tag-label mb-2">{label}</p>
+  <h1 class="font-display text-3xl font-semibold sm:text-4xl">{title}</h1>
+  {lede && <p class="mt-4 max-w-prose text-lg text-ink-muted">{lede}</p>}
+</div>

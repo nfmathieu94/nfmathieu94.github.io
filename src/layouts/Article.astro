@@ -1,0 +1,62 @@
+---
+import Base from "./Base.astro";
+import { withBase, formatDate } from "../lib/paths";
+
+interface Props {
+  label: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  meta?: string;
+  tags?: string[];
+  /** Path back to the listing page, e.g. `/blog/`. */
+  backHref: string;
+  backLabel: string;
+}
+
+const {
+  label,
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  meta,
+  tags = [],
+  backHref,
+  backLabel,
+} = Astro.props;
+---
+
+<Base title={title} description={description} ogType="article">
+  <a href={withBase(backHref)} class="link-vine text-sm">← {backLabel}</a>
+
+  <article class="mt-6">
+    <header class="mb-8">
+      <p class="tag-label mb-2">{label}{meta && ` · ${meta}`}</p>
+      <h1 class="font-display text-3xl font-semibold sm:text-4xl">{title}</h1>
+      <p class="mt-4 text-lg text-ink-muted">{description}</p>
+      <p class="mt-4 text-sm text-ink-muted">
+        <time datetime={pubDate.toISOString().slice(0, 10)}>
+          {formatDate(pubDate)}
+        </time>
+        {updatedDate && <span> · updated {formatDate(updatedDate)}</span>}
+      </p>
+      {
+        tags.length > 0 && (
+          <ul class="mt-3 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <li class="border border-line px-2 py-0.5 text-xs text-ink-muted">
+                {tag}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</Base>

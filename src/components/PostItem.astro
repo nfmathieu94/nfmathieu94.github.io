@@ -1,0 +1,24 @@
+---
+import { withBase, formatDate } from "../lib/paths";
+
+interface Props {
+  /** Path under the site base, e.g. `/blog/my-post/`. */
+  href: string;
+  title: string;
+  description: string;
+  date: Date;
+  meta?: string;
+}
+const { href, title, description, date, meta } = Astro.props;
+---
+
+<article class="group py-5">
+  <p class="text-sm text-ink-muted">
+    <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time>
+    {meta && <span class="tag-label ml-3">{meta}</span>}
+  </p>
+  <h3 class="mt-1 font-display text-xl font-semibold">
+    <a href={withBase(href)} class="group-hover:text-pine">{title}</a>
+  </h3>
+  <p class="mt-2 max-w-prose text-ink-muted">{description}</p>
+</article>

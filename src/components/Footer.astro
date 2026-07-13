@@ -1,0 +1,41 @@
+---
+import { SITE, PROFILES } from "../data/site";
+import LeafDivider from "./LeafDivider.astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line">
+  <div class="mx-auto max-w-4xl px-5 py-10 sm:px-8">
+    <LeafDivider class="mx-auto mb-8 w-40 text-moss" />
+    <div class="flex flex-col items-center gap-4 text-center">
+      <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <li>
+          <a href={`mailto:${SITE.email}`} class="link-vine text-sm">Email</a>
+        </li>
+        {
+          PROFILES.map((p) => (
+            <li>
+              <a
+                href={p.url}
+                class="link-vine text-sm"
+                rel="me noopener"
+                title={
+                  p.placeholder
+                    ? "Placeholder link — update in src/data/site.ts"
+                    : undefined
+                }
+              >
+                {p.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="text-sm text-ink-muted">
+        © {year}
+        {SITE.name} · {SITE.institution}
+      </p>
+    </div>
+  </div>
+</footer>

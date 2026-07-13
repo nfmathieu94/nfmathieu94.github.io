@@ -1,0 +1,242 @@
+/* Self-hosted fonts (no CDN requests) */
+@import "@fontsource-variable/fraunces";
+@import "@fontsource/alegreya-sans/400.css";
+@import "@fontsource/alegreya-sans/400-italic.css";
+@import "@fontsource/alegreya-sans/500.css";
+@import "@fontsource/alegreya-sans/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+
+@import "tailwindcss";
+
+/* Manual theme toggle: `dark:` utilities follow the data-theme attribute */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * Herbarium palette.
+ * Runtime-switchable tokens live on :root / [data-theme="dark"];
+ * @theme inline maps them to Tailwind utilities (bg-paper, text-ink, ...).
+ */
+:root {
+  --paper: #f5f1e3; /* warm cream — pressed-paper background */
+  --surface: #fcf9ef; /* raised cards, code blocks */
+  --ink: #262f1d; /* deep bark-green text */
+  --ink-muted: #5b6350; /* secondary text */
+  --pine: #2d5232; /* primary green — links, buttons */
+  --moss: #5e7d52; /* hover states, soft accents */
+  --lichen: #8f6c14; /* gold accent — labels, underlines */
+  --clay: #99482d; /* sparing warm accent */
+  --line: #dcd2b6; /* hairline borders */
+  --halo: #2d523214; /* translucent pine wash */
+}
+
+[data-theme="dark"] {
+  --paper: #151a12;
+  --surface: #1d2419;
+  --ink: #e9e5d2;
+  --ink-muted: #a7ac95;
+  --pine: #93bb85;
+  --moss: #a9c79b;
+  --lichen: #d0a94b;
+  --clay: #d08262;
+  --line: #333d2c;
+  --halo: #93bb8517;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-pine: var(--pine);
+  --color-moss: var(--moss);
+  --color-lichen: var(--lichen);
+  --color-clay: var(--clay);
+  --color-line: var(--line);
+  --color-halo: var(--halo);
+
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-sans: "Alegreya Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--pine);
+    color: var(--paper);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  /* Specimen-tag label: small caps, tracked out, lichen gold */
+  .tag-label {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--lichen);
+  }
+
+  /* Underlined text link */
+  .link-vine {
+    color: var(--pine);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--lichen);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition:
+      color 120ms ease,
+      text-decoration-thickness 120ms ease;
+  }
+  .link-vine:hover {
+    color: var(--moss);
+    text-decoration-thickness: 2px;
+  }
+
+  /* Herbarium specimen card */
+  .specimen-card {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      transform 150ms ease;
+  }
+  .specimen-card:hover {
+    border-color: var(--moss);
+    box-shadow: 4px 4px 0 var(--halo);
+    transform: translate(-1px, -1px);
+  }
+
+  /* Rendered Markdown/MDX content */
+  .prose {
+    max-width: 70ch;
+  }
+  .prose > * + * {
+    margin-top: 1.1em;
+  }
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    margin-top: 1.8em;
+    line-height: 1.25;
+  }
+  .prose h2 {
+    font-size: 1.55rem;
+  }
+  .prose h3 {
+    font-size: 1.25rem;
+  }
+  .prose a {
+    color: var(--pine);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--lichen);
+    text-underline-offset: 3px;
+  }
+  .prose a:hover {
+    color: var(--moss);
+  }
+  .prose ul,
+  .prose ol {
+    padding-left: 1.4em;
+  }
+  .prose ul {
+    list-style: disc;
+  }
+  .prose ol {
+    list-style: decimal;
+  }
+  .prose li + li {
+    margin-top: 0.35em;
+  }
+  .prose blockquote {
+    border-left: 3px solid var(--moss);
+    padding-left: 1em;
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+  .prose code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+  }
+  .prose pre {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 1em 1.2em;
+    overflow-x: auto;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+  .prose pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+  }
+  .prose img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+  }
+  .prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  .prose th,
+  .prose td {
+    border: 1px solid var(--line);
+    padding: 0.4em 0.7em;
+    text-align: left;
+  }
+  .prose th {
+    background-color: var(--surface);
+  }
+  .prose hr {
+    border: none;
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
