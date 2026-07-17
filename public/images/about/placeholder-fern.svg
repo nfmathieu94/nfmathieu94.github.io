@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Placeholder: pressed fern specimen">
+  <rect width="400" height="500" fill="#f5f1e3"/>
+  <rect x="14" y="14" width="372" height="472" fill="none" stroke="#dcd2b6" stroke-width="2"/>
+  <g fill="none" stroke="#2d5232" stroke-width="3" stroke-linecap="round">
+    <path d="M200 440C206 360 194 240 200 90"/>
+    <g stroke="#5e7d52" stroke-width="2.4">
+      <path d="M200 400C160 392 128 366 118 330"/>
+      <path d="M200 400C240 392 272 366 282 330"/>
+      <path d="M199 350C163 342 136 318 128 286"/>
+      <path d="M199 350C235 342 262 318 270 286"/>
+      <path d="M198 300C167 292 144 271 137 243"/>
+      <path d="M198 300C229 292 252 271 259 243"/>
+      <path d="M199 250C172 243 152 224 146 200"/>
+      <path d="M199 250C226 243 246 224 252 200"/>
+      <path d="M200 200C178 194 162 178 157 158"/>
+      <path d="M200 200C222 194 238 178 243 158"/>
+      <path d="M200 152C183 147 171 134 167 118"/>
+      <path d="M200 152C217 147 229 134 233 118"/>
+      <path d="M200 112C190 108 183 100 181 90"/>
+      <path d="M200 112C210 108 217 100 219 90"/>
+    </g>
+  </g>
+  <circle cx="200" cy="86" r="5" fill="#8f6c14"/>
+  <g>
+    <rect x="96" y="450" width="208" height="26" fill="#fcf9ef" stroke="#dcd2b6"/>
+    <text x="200" y="467" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#5b6350">placeholder — add your photos</text>
+  </g>
+</svg>

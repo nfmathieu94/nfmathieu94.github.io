@@ -122,6 +122,22 @@ Three placeholders here, all inside the `.prose` section:
 Your contact email and profile links in the sidebar come from
 `src/data/site.ts` automatically — no need to edit them here.
 
+### Your photos (the shuffling deck in the sidebar)
+
+The "Field photographs" deck rotates through photos listed in
+`src/data/photos.ts`. To swap in your own:
+
+1. Drop image files in `public/images/about/` — portrait-ish photos
+   (roughly 4:5) look best; JPG/PNG/WebP all work.
+2. Edit `src/data/photos.ts`: one entry per photo with `src` (e.g.
+   `"/images/about/me-in-the-field.jpg"`), a real `alt` text, and an optional
+   short `caption`.
+3. Delete the three `placeholder-*.svg` entries and files once your photos
+   are in.
+
+The deck auto-shuffles every few seconds (it pauses while hovered and
+respects reduced-motion settings); clicking it advances manually.
+
 ---
 
 ## Step 4 — Your CV (`src/pages/cv.astro`)

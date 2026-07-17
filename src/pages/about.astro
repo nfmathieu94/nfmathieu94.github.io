@@ -1,7 +1,9 @@
 ---
 import Base from "../layouts/Base.astro";
 import PageIntro from "../components/PageIntro.astro";
+import PhotoDeck from "../components/PhotoDeck.astro";
 import { SITE, PROFILES } from "../data/site";
+import { ABOUT_PHOTOS } from "../data/photos";
 ---
 
 <Base
@@ -44,6 +46,10 @@ import { SITE, PROFILES } from "../data/site";
     </div>
 
     <aside class="space-y-6">
+      <div>
+        <p class="tag-label mb-3">Field photographs</p>
+        <PhotoDeck photos={ABOUT_PHOTOS} />
+      </div>
       <div class="specimen-card p-5">
         <p class="tag-label mb-2">Contact</p>
         <a href={`mailto:${SITE.email}`} class="link-vine break-all">
