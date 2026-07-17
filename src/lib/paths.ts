@@ -1,7 +1,8 @@
 /**
- * Prefix an internal path with the configured base path.
- * Required because the site currently deploys as a GitHub project page
- * under /nathanmathieu.github.io/ — see astro.config.mjs.
+ * Prefix an internal path with the configured base path (see astro.config.mjs).
+ * The site deploys at the domain root today, so the base is "/", but routing
+ * every internal link through this helper means a future subpath deploy
+ * needs no code changes.
  *
  * Always use this for internal <a href> and asset references:
  *   <a href={withBase("/blog/")}>Blog</a>
