@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Placeholder: fiddlehead under a starry sky">
+  <rect width="400" height="500" fill="#151a12"/>
+  <g fill="#d0a94b">
+    <circle cx="60" cy="70" r="2.5"/>
+    <circle cx="140" cy="40" r="1.8"/>
+    <circle cx="230" cy="86" r="2.2"/>
+    <circle cx="320" cy="50" r="2.8"/>
+    <circle cx="356" cy="130" r="1.8"/>
+    <circle cx="92" cy="150" r="1.6"/>
+    <circle cx="280" cy="160" r="2"/>
+    <circle cx="180" cy="120" r="1.5"/>
+    <circle cx="40" cy="230" r="1.8"/>
+    <circle cx="350" cy="240" r="1.5"/>
+  </g>
+  <g fill="none" stroke="#a9c79b" stroke-width="4" stroke-linecap="round">
+    <path d="M200 470C196 400 202 340 200 280C198 220 208 190 232 178C256 166 276 182 272 204C268 224 248 232 236 220C228 212 230 198 240 194"/>
+    <path d="M200 420C170 412 148 390 142 360" stroke-width="3"/>
+    <path d="M200 360C228 352 248 332 254 304" stroke-width="3"/>
+  </g>
+  <g>
+    <rect x="96" y="450" width="208" height="26" fill="#1d2419" stroke="#333d2c"/>
+    <text x="200" y="467" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#a7ac95">placeholder — add your photos</text>
+  </g>
+</svg>

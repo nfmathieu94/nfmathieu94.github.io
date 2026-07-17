@@ -1,0 +1,110 @@
+---
+/**
+ * A stack of "field photographs" that gently shuffles: the top card lifts,
+ * drifts off, and tucks itself under the pile while the next straightens up.
+ * Auto-advances every few seconds (paused on hover/focus, disabled under
+ * prefers-reduced-motion); clicking the stack or the button advances manually.
+ * Photos come from src/data/photos.ts — layout never hardcodes content.
+ */
+import { withBase } from "../lib/paths";
+import type { AboutPhoto } from "../data/photos";
+
+interface Props {
+  photos: AboutPhoto[];
+  class?: string;
+}
+const { photos, class: className } = Astro.props;
+---
+
+{
+  photos.length > 0 && (
+    <div class:list={["photo-deck", className]} data-photo-deck>
+      <div
+        class="deck-stack"
+        role="group"
+        aria-label={`Photo deck, ${photos.length} photos`}
+      >
+        {photos.map((p, i) => (
+          <figure
+            class="deck-card"
+            data-pos={Math.min(i, 2)}
+            style={`z-index:${photos.length - i}`}
+          >
+            <img
+              src={withBase(p.src)}
+              alt={p.alt}
+              loading={i === 0 ? "eager" : "lazy"}
+            />
+            {p.caption && (
+              <figcaption class="deck-caption">{p.caption}</figcaption>
+            )}
+          </figure>
+        ))}
+      </div>
+      {photos.length > 1 && (
+        <button type="button" class="deck-shuffle" data-deck-next>
+          next photo <span aria-hidden="true">&#8635;</span>
+        </button>
+      )}
+    </div>
+  )
+}
+
+<script>
+  for (const deck of document.querySelectorAll<HTMLElement>(
+    "[data-photo-deck]",
+  )) {
+    const order = [...deck.querySelectorAll<HTMLElement>(".deck-card")];
+    if (order.length < 2) continue;
+
+    const apply = () => {
+      order.forEach((card, pos) => {
+        card.style.zIndex = String(order.length - pos);
+        card.dataset.pos = String(Math.min(pos, 2));
+      });
+    };
+
+    let busy = false;
+    const advance = () => {
+      if (busy) return;
+      busy = true;
+      const top = order[0];
+      top.classList.add("is-leaving");
+      window.setTimeout(() => {
+        const first = order.shift();
+        if (first) order.push(first);
+        top.classList.remove("is-leaving");
+        apply();
+        busy = false;
+      }, 520);
+    };
+
+    deck.querySelector(".deck-stack")?.addEventListener("click", advance);
+    deck.querySelector("[data-deck-next]")?.addEventListener("click", advance);
+
+    // Auto-shuffle, politely: not under reduced motion, not while the
+    // visitor is hovering/focusing the deck, not in a hidden tab.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let timer: number | undefined;
+    const play = () => {
+      if (!reduceMotion.matches && timer === undefined) {
+        timer = window.setInterval(advance, 5200);
+      }
+    };
+    const stop = () => {
+      window.clearInterval(timer);
+      timer = undefined;
+    };
+    deck.addEventListener("pointerenter", stop);
+    deck.addEventListener("pointerleave", play);
+    deck.addEventListener("focusin", stop);
+    deck.addEventListener("focusout", play);
+    document.addEventListener("visibilitychange", () =>
+      document.hidden ? stop() : play(),
+    );
+    reduceMotion.addEventListener("change", () =>
+      reduceMotion.matches ? stop() : play(),
+    );
+    play();
+  }
+</script>

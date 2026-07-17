@@ -1,5 +1,38 @@
 # Progress Notes
 
+## 2026-07-16 — Motif art refresh + About photo deck
+
+### Purpose
+
+Second pass on the per-section header motifs (bigger, redesigned Software /
+Blog / Tutorials art, idle "life" animations) and a rotating personal-photo
+deck on the About page. Branch: `feat/motif-art-refresh`.
+
+### What was built
+
+- `PageIntro.astro`: motifs render larger (`h-14` → `h-20`).
+- `PageMotif.astro` redesigns:
+  - **Software**: potted plant between `< >` brackets (the cluttered
+    vine-through-`/` is gone).
+  - **Blog**: leaf-quill whose ink line unfurls into a fiddlehead spiral,
+    trailing gold spore dots.
+  - **Tutorials**: sprout now climbs on a tall curving stem well clear of the
+    terminal, two leaves + gold bud.
+- Idle "life" vocabulary in `global.css` (reduced-motion-gated): `.sway`
+  (leaves breathe in a light breeze) and `.pulse-dot` (buds/spores/DNA base
+  pairs glow softly, staggered) — applied across all eight motifs.
+- About page photo deck (`PhotoDeck.astro` + `src/data/photos.ts` +
+  `public/images/about/placeholder-*.svg`): stacked polaroid-style cards with
+  a washi-tape detail that auto-shuffle (top card lifts and tucks under);
+  pauses on hover, click to advance, disabled under reduced motion. Photos are
+  data-driven; placeholders marked for replacement (see
+  `docs/EDITING-GUIDE.md` → About → "Your photos").
+
+### Next steps
+
+1. Eyeball every page in `pixi run dev` (light + dark), then PR into `main`.
+2. Replace placeholder photos with real ones.
+
 ## 2026-07-16 — First live deploy: user page at the domain root
 
 ### Purpose
