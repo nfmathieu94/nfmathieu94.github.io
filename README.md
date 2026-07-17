@@ -1,4 +1,4 @@
-# nathanmathieu.github.io
+# nfmathieu94.github.io
 
 Personal academic website for **Nathan Mathieu** — PhD student in plant biology
 at UC Riverside. Built with Astro, TypeScript, and Tailwind CSS; content is
@@ -35,7 +35,7 @@ pixi install
 # 2. Install npm dependencies
 pixi run install
 
-# 3. Start the dev server (http://localhost:4321/nathanmathieu.github.io/)
+# 3. Start the dev server (http://localhost:4321/)
 pixi run dev
 ```
 
@@ -113,8 +113,9 @@ Deployment is automated by `.github/workflows/deploy.yml` on every push to
 1. Go to **Settings → Pages**.
 2. Under **Build and deployment → Source**, choose **GitHub Actions**.
 
-The workflow reads the base path from GitHub's `configure-pages` action, so the
-site works whether it's served from the project subpath or a custom domain.
+The workflow reads the site URL and base path from GitHub's `configure-pages`
+action, so the site works whether it's served from the user-page root (as now),
+a project subpath, or a custom domain.
 
 ### Custom domain (e.g. nathanmathieu.com)
 
@@ -124,9 +125,8 @@ site works whether it's served from the project subpath or a custom domain.
    four `A` records for the apex, plus a `CNAME` for `www`).
 4. Once DNS resolves, enable **Enforce HTTPS**.
 
-With a custom domain, `configure-pages` reports an empty base path, so internal
-links automatically drop the `/nathanmathieu.github.io` prefix — no code change
-needed.
+The site already serves from the domain root, so a custom domain needs no code
+change — `configure-pages` reports the new origin automatically.
 
 ## Project structure
 

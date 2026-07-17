@@ -1,5 +1,35 @@
 # Progress Notes
 
+## 2026-07-16 — First live deploy: user page at the domain root
+
+### Purpose
+
+Get the site publicly reachable and align config/docs after the repo rename.
+
+### What happened
+
+- GitHub Pages was never enabled, so every deploy failed at the
+  `configure-pages` step. Fixed via **Settings → Pages → Source = GitHub
+  Actions**; the deploy workflow now passes.
+- Repo renamed `nathanmathieu.github.io` → **`nfmathieu94.github.io`**, making
+  it a GitHub _user_ page served at the domain root
+  (<https://nfmathieu94.github.io/>). Local git remote updated to match.
+- The first successful deploy predated the rename, so the live HTML linked
+  assets under the old `/nathanmathieu.github.io/` subpath and the site
+  rendered unstyled. Fix: re-run "Deploy to GitHub Pages" (workflow_dispatch)
+  so `configure-pages` bakes in the root base path.
+- Updated `astro.config.mjs` (default `SITE_BASE` is now `/`),
+  `src/lib/paths.ts`, `README.md`, `AGENTS.md`, and `docs/EDITING-GUIDE.md` to
+  drop the stale project-subpath references. `withBase()` remains the rule for
+  internal links.
+
+### Next steps
+
+1. Merge the pending `feat/botanical-aesthetic` commit (per-section motifs)
+   plus these docs/config updates into `main`.
+2. Replace `[PLACEHOLDER: …]` content (see `docs/EDITING-GUIDE.md`).
+3. Optional: custom domain via `public/CNAME` + DNS (README has the steps).
+
 ## 2026-07-12 — Initial site build
 
 ### Purpose

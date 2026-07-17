@@ -4,18 +4,13 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
-// Deployed as a GitHub *project* page for now (repo name != GitHub username),
-// so the site lives under a base path. When a custom domain is set up:
-//   1. set SITE_URL to e.g. "https://nathanmathieu.com" and SITE_BASE to "/"
-//      (either via env vars in the deploy workflow or by editing the defaults)
-//   2. add a `public/CNAME` file containing the domain
+// Deployed as the GitHub *user* page (repo `nfmathieu94.github.io`), so the
+// site is served from the domain root and the base path is "/". The deploy
+// workflow still feeds SITE_URL/SITE_BASE from actions/configure-pages, so a
+// future custom domain (public/CNAME + Settings → Pages) or a move back to a
+// project subpath needs no code change here.
 const SITE_URL = process.env.SITE_URL || "https://nfmathieu94.github.io";
-// configure-pages reports an empty base_path for user/custom-domain sites;
-// fall back to "/" in that case rather than to the project-page default.
-const SITE_BASE =
-  process.env.SITE_BASE !== undefined
-    ? process.env.SITE_BASE || "/"
-    : "/nathanmathieu.github.io";
+const SITE_BASE = process.env.SITE_BASE || "/";
 
 export default defineConfig({
   site: SITE_URL,

@@ -62,15 +62,16 @@ from `astro/zod`). Collections: `blog`, `tutorials`, `projects`, `software`,
 
 ## Routing & the base path
 
-The site currently deploys as a GitHub **project page** under
-`/nathanmathieu.github.io/`, so it has a non-root base path.
+The site deploys as the GitHub **user page** (`nfmathieu94.github.io`), served
+from the domain root, so the base path is currently `/`.
 
-- **Always wrap internal links and asset paths in `withBase()`** from
-  `src/lib/paths.ts`: `href={withBase("/blog/")}`. Never hardcode a leading
-  `/path` for an internal link — it will 404 on the deployed subpath.
-- The base path is configured in `astro.config.mjs` and overridden in CI by the
-  `configure-pages` action, so it "just works" for both the project subpath and
-  a future custom domain. Don't hardcode the subpath anywhere else.
+- **Still wrap internal links and asset paths in `withBase()`** from
+  `src/lib/paths.ts`: `href={withBase("/blog/")}`. It costs nothing at the
+  root base path and keeps every link correct if the site ever moves back
+  under a subpath.
+- The base path is configured in `astro.config.mjs` and fed in CI by the
+  `configure-pages` action, so it "just works" for the root deploy today and a
+  future custom domain. Don't hardcode a base path anywhere else.
 
 ## Styling
 

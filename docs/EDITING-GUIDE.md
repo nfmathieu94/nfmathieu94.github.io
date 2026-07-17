@@ -21,7 +21,7 @@ edit is either **data** (`src/data/site.ts`) or **content** (Markdown files unde
 ```bash
 cd /bigdata/stajichlab/nmath020/github/github_tools/nathanmathieu.github.io
 
-pixi run dev        # live preview at http://localhost:4321/nathanmathieu.github.io/
+pixi run dev        # live preview at http://localhost:4321/
                     # edits show up instantly — leave this running while you write
 ```
 
@@ -272,15 +272,14 @@ description: "One or two sentences about your role."
 ## Adding images
 
 Put image files in `public/` (e.g. `public/images/my-figure.png`), then
-reference them in Markdown with the site base path:
+reference them in Markdown from the site root:
 
 ```markdown
-![Description of the image](/nathanmathieu.github.io/images/my-figure.png)
+![Description of the image](/images/my-figure.png)
 ```
 
-> The `/nathanmathieu.github.io/` prefix is needed because the site is hosted
-> under that subpath. Once you move to a custom domain (e.g. nathanmathieu.com),
-> that prefix goes away — see the README's custom-domain section.
+> Files in `public/` are served from the root of the site, so the path starts
+> with `/`.
 
 Always include the alt text (the part in `[ … ]`) for accessibility.
 
